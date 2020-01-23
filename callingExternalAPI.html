@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="axios.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root">
+    <button v-on:click="getPosts()">Call API</button>
+    <div v-for="post in posts">
+      <h2>{{post.title}}</h2>
+      <p>{{post.body}}</p>
+
+    </div>
+  </div>
+  <script src="vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#root",
+      data: {
+        posts: []
+      },
+      methods: {
+        getPosts: function () {
+          var currentApp = this;
+          axios.get("http://jsonplaceholder.typicode.com/posts")
+            .then(function (res) {   //promise er callback function name (.then)
+              currentApp.posts = res.data;
+            })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
